@@ -17,12 +17,21 @@ describe Merchant do
 
   describe "class methods" do
     before :each do
-      @merchant1 = Merchant.create!(name: 'Hair Care')
+      @merchant1 = Merchant.create!(name: 'Dolly Parton')
       @merchant2 = Merchant.create!(name: 'Jewelry')
       @merchant3 = Merchant.create!(name: 'Office Space')
       @merchant4 = Merchant.create!(name: 'The Office')
       @merchant5 = Merchant.create!(name: 'Office Improvement')
       @merchant6 = Merchant.create!(name: 'Pens & Stuff')
+
+      @coupon1 = @merchant1.coupons.create!(name: "Ten Percent Off", unique_code: "10%OFF", amount_off: 10, discount: 1, status: 1)
+      @coupon2 = @merchant1.coupons.create!(name: "Five Percent Off", unique_code: "5%OFF", amount_off: 5, discount: 1, status: 1)
+      @coupon3 = @merchant1.coupons.create!(name: "Fifteen Percent Off", unique_code: "15%OFF", amount_off: 15, discount: 1, status: 1)
+      @coupon4 = @merchant1.coupons.create!(name: "Ten Dollars Off", unique_code: "10$OFF", amount_off: 10, discount: 0, status: 1)
+      @coupon5 = @merchant1.coupons.create!(name: "Summer Sale", unique_code: "SUM12%OFF",amount_off: 12, discount: 1, status: 1)
+      @coupon6 = @merchant1.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 0)
+      @coupon7 = @merchant2.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 1)
+      @coupon8 = @merchant2.coupons.create!(name: "Ten Percent Off", unique_code: "10%OFF", amount_off: 10, discount: 1, status: 1)
 
       @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
       @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
@@ -93,8 +102,18 @@ describe Merchant do
 
   describe "instance methods" do
     before :each do
-      @merchant1 = Merchant.create!(name: 'Hair Care')
-      @merchant2 = Merchant.create!(name: 'Jewelry')
+      @merchant1 = Merchant.create!(name: 'Dolly Parton')
+      @merchant2 = Merchant.create!(name: 'Jewel')
+
+      @coupon1 = @merchant1.coupons.create!(name: "Ten Percent Off", unique_code: "10%OFF", amount_off: 10, discount: 1, status: 1)
+      @coupon2 = @merchant1.coupons.create!(name: "Five Percent Off", unique_code: "5%OFF", amount_off: 5, discount: 1, status: 1)
+      @coupon3 = @merchant1.coupons.create!(name: "Fifteen Percent Off", unique_code: "15%OFF", amount_off: 15, discount: 1, status: 1)
+      @coupon4 = @merchant1.coupons.create!(name: "Ten Dollars Off", unique_code: "10$OFF", amount_off: 10, discount: 0, status: 1)
+      @coupon5 = @merchant1.coupons.create!(name: "Summer Sale", unique_code: "SUM12%OFF",amount_off: 12, discount: 1, status: 1)
+      @coupon6 = @merchant1.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 0)
+      @coupon7 = @merchant2.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 1)
+      @coupon8 = @merchant2.coupons.create!(name: "Ten Percent Off", unique_code: "10%OFF", amount_off: 10, discount: 1, status: 1)
+
 
       @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
       @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
@@ -169,6 +188,13 @@ describe Merchant do
     it "disabled_items" do 
       expect(@merchant1.disabled_items).to eq([@item_2, @item_3, @item_4, @item_7, @item_8])
       expect(@merchant2.disabled_items).to eq([@item_5, @item_6])
+    end
+
+    describe "Finds active coupon count > five" do
+      it "::active_coupon_count" do
+        expect(@merchant1.active_coupon_count).to eq(5)
+        expect(@merchant2.active_coupon_count).to eq(2)
+      end
     end
   end
 end
