@@ -5,6 +5,12 @@ RSpec.describe "invoices show" do
     @merchant1 = Merchant.create!(name: "Hair Care")
     @merchant2 = Merchant.create!(name: "Jewelry")
 
+    @coupon1 = @merchant1.coupons.create!(name: "Ten Percent Off", unique_code: "10%OFF", amount_off: 10, discount: 1, status: 1)
+    @coupon2 = @merchant1.coupons.create!(name: "Five Percent Off", unique_code: "5%OFF", amount_off: 5, discount: 1, status: 1)
+    @coupon3 = @merchant1.coupons.create!(name: "Fifteen Percent Off", unique_code: "15%OFF", amount_off: 15, discount: 1, status: 1)
+    @coupon4 = @merchant1.coupons.create!(name: "Ten Dollars Off", unique_code: "10$OFF", amount_off: 10, discount: 0, status: 1)
+    @coupon5 = @merchant1.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 0)
+
     @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
     @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
     @item_3 = Item.create!(name: "Brush", description: "This takes out tangles", unit_price: 5, merchant_id: @merchant1.id)
@@ -100,4 +106,26 @@ RSpec.describe "invoices show" do
     end
   end
 
+describe "US7 Merchant Invoice Show Page: Subtotal and Grand Total Revenues" do
+  it "I see the subtotal for my merchant from this invoice (that is, the total that does not include coupon discounts) And I see the grand total revenue after the discount was applied
+  And I see the name and code of the coupon used as a link to that coupon's show page." do
+  visit merchant_invoice_path(@merchant1, @invoice_1)
+save_and_open_page
+
+  expect(page).to have_content("#{@coupon1.name}")
+  expect(page).to have_content("#{@coupon1.unique_code}")
+  expect(page).to have_content("Subtotal: 162.0")
+  expect(page).to have_content("Grandtotal: 145.8")
+
+    end
+  end
 end
+
+# 7. Merchant Invoice Show Page: Subtotal and Grand Total Revenues
+
+# As a merchant
+# When I visit one of my merchant invoice show pages
+# I see the subtotal for my merchant from this invoice (that is, the total that does not include coupon discounts)
+# And I see the grand total revenue after the discount was applied
+# And I see the name and code of the coupon used as a link to that coupon's show page.
+
