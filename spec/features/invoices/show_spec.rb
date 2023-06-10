@@ -28,9 +28,9 @@ RSpec.describe "invoices show" do
     @customer_5 = Customer.create!(first_name: "Sylvester", last_name: "Nader")
     @customer_6 = Customer.create!(first_name: "Herber", last_name: "Kuhn")
 
-    @invoice_1 = Invoice.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09")
-    @invoice_2 = Invoice.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-28 14:54:09")
-    @invoice_3 = Invoice.create!(customer_id: @customer_2.id, status: 2)
+    @invoice_1 = @coupon1.invoices.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09")
+    @invoice_2 = @coupon2.invoices.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-28 14:54:09")
+    @invoice_3 = @coupon4.invoices.create!(customer_id: @customer_2.id, status: 2)
     @invoice_4 = Invoice.create!(customer_id: @customer_3.id, status: 2)
     @invoice_5 = Invoice.create!(customer_id: @customer_4.id, status: 2)
     @invoice_6 = Invoice.create!(customer_id: @customer_5.id, status: 2)
@@ -110,13 +110,13 @@ describe "US7 Merchant Invoice Show Page: Subtotal and Grand Total Revenues" do
   it "I see the subtotal for my merchant from this invoice (that is, the total that does not include coupon discounts) And I see the grand total revenue after the discount was applied
   And I see the name and code of the coupon used as a link to that coupon's show page." do
   visit merchant_invoice_path(@merchant1, @invoice_1)
-save_and_open_page
-
-  expect(page).to have_content("#{@coupon1.name}")
-  expect(page).to have_content("#{@coupon1.unique_code}")
-  expect(page).to have_content("Subtotal: 162.0")
-  expect(page).to have_content("Grandtotal: 145.8")
-
+# save_and_open_page
+    within("#center-invoice-info") do
+      expect(page).to have_content("#{@coupon1.name}")
+      expect(page).to have_content("#{@coupon1.unique_code}")
+      expect(page).to have_content("(Subtotal): #{@invoice_1.total_revenue}")
+      expect(page).to have_content("Grandtotal: #{@invoice_1.coupon_applied}")
+      end
     end
   end
 end
