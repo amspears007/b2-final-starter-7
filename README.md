@@ -11,7 +11,7 @@ A Coupon has a name, unique code (e.g. “BOGO50”), and either percent-off or 
 If a coupon’s dollar value (ex. “$10 off”) exceeds the total cost of that merchant’s items on the invoice, the grand total for that merchant’s items should then be $0. (In other words, the merchant will never owe money to a customer.)
 A coupon code from a Merchant only applies to Items sold by that Merchant.
 
-[] 1. Merchant Coupons Index 
+[x] 1. Merchant Coupons Index 
 
 As a merchant
 When I visit my merchant dashboard page
