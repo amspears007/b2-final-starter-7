@@ -10,8 +10,12 @@
   </div>
   <br>
 
+<section id="center-invoice-info">
   <p> Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %></p>
-  <p>Total Revenue: <%= @invoice.total_revenue %></p>
+  <p>Total Revenue(Subtotal): <%= @invoice.total_revenue %></p>
+  <p> Apply <%=  @invoice.coupon.name %> Code <%= @invoice.coupon.unique_code %>
+  <p> Grandtotal: <%= @invoice.coupon_applied %>
+</section>
 
 
   <h4>Customer:</h4>
