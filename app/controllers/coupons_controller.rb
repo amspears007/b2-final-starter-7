@@ -9,4 +9,8 @@ class CouponsController < ApplicationController
     @coupons = @merchant.coupons
     # require 'pry'; binding.pry
   end
+
+  def new
+    
+  end
 end
