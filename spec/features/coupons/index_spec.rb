@@ -65,6 +65,19 @@ save_and_open_page
       expect(page).to have_content("Name: Summer Sale")
       expect(page).to have_content("Amount Off: 30 percent")
     end
+
+    it "tests if a field isn't filled out and returns a prompt" do
+      visit merchant_coupons_path(@merchant1)
+
+      click_link("Create New Coupon")
+      fill_in "name", with: "Summer Sale"
+      fill_in "unique_code", with: ""
+      fill_in "amount_off", with: 30
+      select "percent", from: "discount"
+      click_button "Add Coupon"
+
+      expect(page).to have_content("Error: Please Make Sure All Fields Are Filled In Correctly")
+    end
   end
 end
 # 2. Merchant Coupon Create 
