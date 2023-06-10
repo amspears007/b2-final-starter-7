@@ -65,6 +65,5 @@ class Merchant < ApplicationRecord
 
   def active_coupon_count
     coupons.where(status: :activated).count
-    
   end
 end
