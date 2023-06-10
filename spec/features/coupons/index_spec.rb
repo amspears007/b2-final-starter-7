@@ -66,7 +66,7 @@ save_and_open_page
       expect(page).to have_content("Amount Off: 30 percent")
     end
 
-    it "tests if a field isn't filled out and returns a prompt" do
+    it "tests if a field isn't filled out and returns flash message prompt" do
       visit merchant_coupons_path(@merchant1)
 
       click_link("Create New Coupon")
@@ -77,6 +77,26 @@ save_and_open_page
       click_button "Add Coupon"
 
       expect(page).to have_content("Error: Please Make Sure All Fields Are Filled In Correctly")
+    end
+
+    it "tests if there are more than 5 active coupons and returns flash message prompt" do
+      @merchant2 = Merchant.create!(name: "Jewel")
+      @coupon1 = @merchant2.coupons.create!(name: "Ten Percent Off", unique_code: "10%OFF", amount_off: 10, discount: 1, status: 1)
+      @coupon2 = @merchant2.coupons.create!(name: "Five Percent Off", unique_code: "5%OFF", amount_off: 5, discount: 1, status: 1)
+      @coupon3 = @merchant2.coupons.create!(name: "Fifteen Percent Off", unique_code: "15%OFF", amount_off: 15, discount: 1, status: 1)
+      @coupon4 = @merchant2.coupons.create!(name: "Ten Dollars Off", unique_code: "10$OFF", amount_off: 10, discount: 0, status: 1)
+      @coupon5 = @merchant2.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 1)
+      # @coupon = @merchant2.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 1)
+      visit merchant_coupons_path(@merchant2)
+
+      click_link("Create New Coupon")
+      fill_in "name", with: "Summer Sale"
+      fill_in "unique_code", with: "SUMMER30"
+      fill_in "amount_off", with: 30
+      select "percent", from: "discount"
+      click_button "Add Coupon"
+save_and_open_page
+      expect(page).to have_content("Can only have 5 active coupons")
     end
   end
 end
