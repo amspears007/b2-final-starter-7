@@ -6,4 +6,6 @@
 <li>Coupon Name: <%= link_to "#{coupon.name}", merchant_coupon_path(@merchant, coupon) %></li>Amount Off: <%= coupon.amount_off %> <%= coupon.discount %>
 </ul>
 <% end %>
+
 </section>
+  <%= link_to "Create New Coupon", new_merchant_coupon_path(@merchant) %>

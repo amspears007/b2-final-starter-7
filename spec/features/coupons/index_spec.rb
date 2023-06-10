@@ -44,4 +44,53 @@ save_and_open_page
       # end      
     end
   end
+  describe "US2 Merchant Coupon Create" do
+    it "I see a link to create a new coupon. When I click that link I am taken to a new page where I see a form to add a new coupon." do
+      visit merchant_coupons_path(@merchant1)
+      expect(page).to have_link("Create New Coupon")
+      click_link("Create New Coupon")
+      expect(current_path).to eq(new_merchant_coupon_path(@merchant1))
+      
+      expect(page).to have_field("name")
+      expect(page).to have_field("discount")
+      
+      fill_in "name", with: "Summer Sale"
+      fill_in "unique_code", with: "SUMMER30"
+      fill_in "amount_off", with: 30
+      select "percent", from: "discount"
+      
+      click_button "Add Coupon"
+      expect(current_path).to eq(merchant_coupons_path(@merchant1))
+      save_and_open_page
+      expect(page).to have_content("Name: Summer Sale")
+      expect(page).to have_content("Amount Off: 30 percent")
+    end
+
+    it "tests if a field isn't filled out and returns a prompt" do
+      visit merchant_coupons_path(@merchant1)
+
+      click_link("Create New Coupon")
+      fill_in "name", with: "Summer Sale"
+      fill_in "unique_code", with: ""
+      fill_in "amount_off", with: 30
+      select "percent", from: "discount"
+      click_button "Add Coupon"
+
+      expect(page).to have_content("Error: Please Make Sure All Fields Are Filled In Correctly")
+    end
+  end
 end
+# 2. Merchant Coupon Create 
+
+# As a merchant
+# When I visit my coupon index page 
+# I see a link to create a new coupon.
+# When I click that link 
+# I am taken to a new page where I see a form to add a new coupon.
+# When I fill in that form with a name, unique code, an amount, and whether that amount is a percent or a dollar amount
+# And click the Submit button
+# I'm taken back to the coupon index page 
+# And I can see my new coupon listed.
+# * Sad Paths to consider: 
+# 1. This Merchant already has 5 active coupons
+# 2. Coupon code entered is NOT unique
