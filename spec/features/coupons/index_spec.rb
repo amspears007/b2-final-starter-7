@@ -50,18 +50,22 @@ save_and_open_page
       expect(page).to have_link("Create New Coupon")
       click_link("Create New Coupon")
       expect(current_path).to eq(new_merchant_coupon_path(@merchant1))
-      save_and_open_page
-
+      
       expect(page).to have_field("name")
       expect(page).to have_field("discount")
-
+      
       fill_in "name", with: "Summer Sale"
       fill_in "unique_code", with: "SUMMER30"
-      fill_in "amount", with: 30
+      fill_in "amount_off", with: 30
       select "percent", from: "discount"
-
+      
+      save_and_open_page
       click_button "Add Coupon"
       expect(current_path).to eq(merchant_coupons_path(@merchant1))
+      expect(page).to have_content("Summer Sale")
+      expect(page).to have_content("SUMMER30")
+      # expect(page).to have_content("")
+
     end
   end
 end
