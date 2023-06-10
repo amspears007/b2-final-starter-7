@@ -21,7 +21,7 @@ I'm taken to my coupons index page
 Where I see all of my coupon names including their amount off 
 And each coupon's name is also a link to its show page.
 
-[] 2. Merchant Coupon Create 
+[x] 2. Merchant Coupon Create 
 
 As a merchant
 When I visit my coupon index page 
