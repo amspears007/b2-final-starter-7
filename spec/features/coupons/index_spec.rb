@@ -59,13 +59,11 @@ save_and_open_page
       fill_in "amount_off", with: 30
       select "percent", from: "discount"
       
-      save_and_open_page
       click_button "Add Coupon"
       expect(current_path).to eq(merchant_coupons_path(@merchant1))
-      expect(page).to have_content("Summer Sale")
-      expect(page).to have_content("SUMMER30")
-      # expect(page).to have_content("")
-
+      save_and_open_page
+      expect(page).to have_content("Name: Summer Sale")
+      expect(page).to have_content("Amount Off: 30 percent")
     end
   end
 end
