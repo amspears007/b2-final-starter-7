@@ -17,12 +17,10 @@ class Invoice < ApplicationRecord
 
   def coupon_applied
     if coupon.discount == "percent"
-      coup_discount = total_revenue * coupon.amount_off.fdiv(100)
+      coup_discount = total_revenue * coupon.amount_off.to_f/100
       total_revenue - coup_discount
     else
-      coupon.discount == "dollars"
       total_revenue - coupon.amount_off
-    # require 'pry'; binding.pry
     end
   end
 end
