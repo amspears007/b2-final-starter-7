@@ -35,7 +35,7 @@ def coupon_test_data
   @invoice_4 = @coupon1.invoices.create!(customer_id: @customer_3.id, status: 2)
   @invoice_5 = @coupon3.invoices.create!(customer_id: @customer_4.id, status: 2)
   @invoice_6 = @coupon4.invoices.create!(customer_id: @customer_5.id, status: 2)
-  @invoice_7 = @coupon1.invoices.create!(customer_id: @customer_6.id, status: 1)
+  @invoice_7 = Invoice.create!(customer_id: @customer_6.id, status: 1)
   @invoice_8 = @coupon1.invoices.create!(customer_id: @customer_6.id, status: 2)
 
   @ii_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 9, unit_price: 10, status: 0, created_at: "2012-03-27 14:54:09")
