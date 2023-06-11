@@ -14,6 +14,5 @@ class Coupon < ApplicationRecord
   def counts_use
     invoices.joins(:transactions)
     .where(transactions: {result: :success}).count
-    # require 'pry'; binding.pry
   end
 end

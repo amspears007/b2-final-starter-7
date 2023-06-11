@@ -14,7 +14,7 @@ RSpec.describe "Coupon Index" do
   describe "US1 merchant_coupons_path(@merchant1)" do
     it "I see all of my coupon names including their amount off And each coupon's name is also a link to its show page." do
       visit merchant_coupons_path(@merchant1)
-save_and_open_page
+# save_and_open_page
       within("h2") do
         expect(page).to have_content("Coupon Index Page")
       end
@@ -61,7 +61,7 @@ save_and_open_page
       
       click_button "Add Coupon"
       expect(current_path).to eq(merchant_coupons_path(@merchant1))
-      save_and_open_page
+      # save_and_open_page
       expect(page).to have_content("Name: Summer Sale")
       expect(page).to have_content("Amount Off: 30 percent")
     end
@@ -95,7 +95,7 @@ save_and_open_page
       fill_in "amount_off", with: 30
       select "percent", from: "discount"
       click_button "Add Coupon"
-save_and_open_page
+# save_and_open_page
       expect(page).to have_content("Can only have 5 active coupons")
     end
   end
