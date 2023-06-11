@@ -36,5 +36,5 @@ class InvoicesController < ApplicationController
   #   @invoice = Invoice.find(params[:id])
   #     if @invoice.coupon != nil 
   #   end
-  end
+  # end
 end
