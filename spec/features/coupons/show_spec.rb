@@ -21,21 +21,57 @@ RSpec.describe "Coupon Show" do
     describe "US4 Merchant Coupon Deactivate" do
       it "I see a button to deactivate that coupon When I click that button I'm taken back to the coupon show page And I can see that its status is now listed as 'inactive'." do
       visit merchant_coupon_path(@merchant1, @coupon1)
-      expect(page).to have_button("Deactivate")
-      click_button("Deactivate")
+
+      within("#status-control")do
+        expect(page).to have_content("Status: #{@coupon1.status}")
+        expect(page).to have_button("Deactivate")
+        click_button("Deactivate")
+        
+        save_and_open_page
+        expect(current_path).to eq(merchant_coupon_path(@merchant1, @coupon1))
+        expect(page).to have_content("Status: Deactivated")
+        expect(page).to have_button("Activate")
+        end
+      end
+    end
+
+    describe "US5 Merchant Coupon Activate" do
+      it "I visit one of my inactive coupon show pages I see a button to activate that coupon.  When I click that button I'm taken back to the coupon show page And I can see that its status is now listed as 'active'." do
+      visit merchant_coupon_path(@merchant1, @coupon6)
       
-      save_and_open_page
-      expect(current_path).to eq(merchant_coupon_path(@merchant1, @coupon1))
-      expect(page).to have_content("Status: Deactivated")
-      expect(page).to have_button("Activate")
+      within("#status-control")do
+        expect(page).to have_content("Status: #{@coupon6.status}")
+        expect(page).to have_button("Activate")
+        click_button("Activate")
+        expect(current_path).to eq(merchant_coupon_path(@merchant1, @coupon6))
+        save_and_open_page
+        expect(page).to have_button("Deactivate")
+        expect(page).to have_content("Status: Activated")
+      end
+
+
+
+
+
+
+
       end
     end
   end
 
-#   Merchant Coupon Deactivate
+#   5. Merchant Coupon Activate
 
-# As a merchant 
-# When I visit one of my active coupon's show pages
+#   As a merchant 
+#   When I visit one of my inactive coupon show pages
+#   I see a button to activate that coupon
+#   When I click that button
+#   I'm taken back to the coupon show page 
+#   And I can see that its status is now listed as 'active'.
+
+# #   Merchant Coupon Deactivate
+
+# # As a merchant 
+# # When I visit one of my active coupon's show pages
 # I see a button to deactivate that coupon
 # When I click that button
 # I'm taken back to the coupon show page 

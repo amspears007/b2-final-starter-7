@@ -6,6 +6,7 @@
 <p>Amount Off: <%= @coupon.amount_off %> <%= @coupon.discount %></p>
 <p>Number of times Used: <%=  @coupon.counts_use %></p>
 
+<section id="status-control">
 <p>Status: <%=  @coupon.status %></p>
 
 <% if @coupon.status == "Activated" %>
@@ -21,6 +22,7 @@
     <%= f.submit "Activate" %>
     <% end %><br>
   <% end %>
+  </section>
 
 
 
