@@ -47,7 +47,7 @@ And I see a count of how many times that coupon has been used.
 
 (Note: "use" of a coupon should be limited to successful transactions.)
 
-[] 4. Merchant Coupon Deactivate
+[x] 4. Merchant Coupon Deactivate
 
 As a merchant 
 When I visit one of my active coupon's show pages
@@ -59,7 +59,7 @@ And I can see that its status is now listed as 'inactive'.
 * Sad Paths to consider: 
 1. A coupon cannot be deactivated if there are any pending invoices with that coupon.
 
-[] 5. Merchant Coupon Activate
+[x] 5. Merchant Coupon Activate
 
 As a merchant 
 When I visit one of my inactive coupon show pages

@@ -86,7 +86,6 @@ RSpec.describe "Coupon Index" do
       @coupon3 = @merchant2.coupons.create!(name: "Fifteen Percent Off", unique_code: "15%OFF", amount_off: 15, discount: 1, status: 1)
       @coupon4 = @merchant2.coupons.create!(name: "Ten Dollars Off", unique_code: "10$OFF", amount_off: 10, discount: 0, status: 1)
       @coupon5 = @merchant2.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 1)
-      # @coupon = @merchant2.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 1)
       visit merchant_coupons_path(@merchant2)
 
       click_link("Create New Coupon")
@@ -99,8 +98,34 @@ RSpec.describe "Coupon Index" do
       expect(page).to have_content("Can only have 5 active coupons")
     end
   end
+
+  describe "US6  Merchant Coupon Index Sorted" do
+    it "I can see that my coupons are separated between active and inactive coupons" do
+      visit merchant_coupons_path(@merchant1)
+save_and_open_page
+      within("#active-coupons")do
+        expect(page).to have_content("Active Coupons")
+        expect(page).to have_link("#{@coupon1.name}")
+        expect(page).to have_link("#{@coupon2.name}")
+        expect(page).to have_link("#{@coupon3.name}")
+        expect(page).to have_link("#{@coupon4.name}")
+     end
+
+     within("#deactive-coupons")do
+      expect(page).to have_content("Deactive Coupons")
+      expect(page).to have_link("#{@coupon5.name}")
+      end
+    end
+  end
 end
-# 2. Merchant Coupon Create 
+
+# 6. Merchant Coupon Index Sorted
+
+# As a merchant
+# When I visit my coupon index page
+# I can see that my coupons are separated between active and inactive coupons. 
+
+# # 2. Merchant Coupon Create 
 
 # As a merchant
 # When I visit my coupon index page 
