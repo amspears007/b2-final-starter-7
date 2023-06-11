@@ -99,8 +99,26 @@ RSpec.describe "Coupon Index" do
       expect(page).to have_content("Can only have 5 active coupons")
     end
   end
+
+  describe "US6  Merchant Coupon Index Sorted" do
+    it "I can see that my coupons are separated between active and inactive coupons" do
+      visit merchant_coupons_path(@merchant1)
+save_and_open_page
+      expect(page).to have_content("Active Coupons")
+      expect(page).to have_content("Coupon Name: #{@coupon1.name}")
+      expect(page).to have_content("Coupon Name: #{@coupon2.name}")
+      expect(page).to have_content("Coupon Name: #{@coupon3.name}")
+    end
+  end
 end
-# 2. Merchant Coupon Create 
+
+# 6. Merchant Coupon Index Sorted
+
+# As a merchant
+# When I visit my coupon index page
+# I can see that my coupons are separated between active and inactive coupons. 
+
+# # 2. Merchant Coupon Create 
 
 # As a merchant
 # When I visit my coupon index page 
