@@ -2,7 +2,6 @@ require "rails_helper"
 
 describe "Admin Invoices Index Page" do
   before :each do
-    coupon_test_data
     @m1 = Merchant.create!(name: "Merchant 1")
 
     @c1 = Customer.create!(first_name: "Yo", last_name: "Yoz", address: "123 Heyyo", city: "Whoville", state: "CO", zip: 12345)
@@ -73,16 +72,32 @@ describe "Admin Invoices Index Page" do
 
   describe "US8  Merchant Invoice Show Page: Subtotal and Grand Total Revenues" do
     it "I see the name and code of the coupon that was used (if there was a coupon applied) and I see both the subtotal revenue from that invoice (before coupon) and the grand total revenue (after coupon) for this invoice." do
-     
+      coupon_test_data
       visit admin_invoice_path(@invoice_1)
-      save_and_open_page
+      # save_and_open_page
 
       within("#center-invoice-total") do
         expect(page).to have_content("10 Sale!")
         expect(page).to have_content("10%OFF")
+        expect(page).to have_content("Total Revenue(Subtotal):")
+
         expect(page).to have_content(@invoice_1.total_revenue)
+        expect(page).to have_content("Grand Total:")
+
         expect(page).to have_content(@invoice_1.coupon_applied)
       end
+    end
+
+      it "I see that no coupon is applied to my grandtotal for my an invoice that does not have a coupon" do
+        coupon_test_data
+      visit admin_invoice_path(@invoice_7)
+
+      within("#center-invoice-total") do
+        expect(page).to have_content("No Coupon Applied")
+        expect(page).to have_content("Grand Total:")
+        expect(page).to have_content(@invoice_7.total_revenue)
+        end
+      
     end
   end
 end
