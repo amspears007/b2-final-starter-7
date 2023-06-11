@@ -104,10 +104,18 @@ RSpec.describe "Coupon Index" do
     it "I can see that my coupons are separated between active and inactive coupons" do
       visit merchant_coupons_path(@merchant1)
 save_and_open_page
-      expect(page).to have_content("Active Coupons")
-      expect(page).to have_content("Coupon Name: #{@coupon1.name}")
-      expect(page).to have_content("Coupon Name: #{@coupon2.name}")
-      expect(page).to have_content("Coupon Name: #{@coupon3.name}")
+      within("#active-coupons")do
+        expect(page).to have_content("Active Coupons")
+        expect(page).to have_link("#{@coupon1.name}")
+        expect(page).to have_link("#{@coupon2.name}")
+        expect(page).to have_link("#{@coupon3.name}")
+        expect(page).to have_link("#{@coupon4.name}")
+     end
+
+     within("#deactive-coupons")do
+      expect(page).to have_content("Deactive Coupons")
+      expect(page).to have_link("#{@coupon5.name}")
+      end
     end
   end
 end
