@@ -8,9 +8,19 @@
 
 <p>Status: <%=  @coupon.status %></p>
 
+<% if @coupon.status == "Activated" %>
  <%= form_with url: merchant_coupon_path(@merchant, @coupon), method: :patch, local: true do |f| %>
-          <%= f.hidden_field :status, value: "Deactivated" %>
-          <%= f.submit "Deactivate" %>
-        <% end %><br>
+    <%= f.hidden_field :status, value: "Deactivated" %>
+    <%= f.submit "Deactivate" %>
+  <% end %><br>
+<% end %>
+
+<% if @coupon.status == "Deactivated" %>
+  <%= form_with url: merchant_coupon_path(@merchant, @coupon), method: :patch, local: true do |f| %>
+    <%= f.hidden_field :status, value: "Activated" %>
+    <%= f.submit "Activate" %>
+    <% end %><br>
+  <% end %>
+
 
 

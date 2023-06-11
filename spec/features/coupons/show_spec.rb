@@ -27,8 +27,7 @@ RSpec.describe "Coupon Show" do
       save_and_open_page
       expect(current_path).to eq(merchant_coupon_path(@merchant1, @coupon1))
       expect(page).to have_content("Status: Deactivated")
-      # expect(page).to have_button("Activate")
-      # require 'pry'; binding.pry
+      expect(page).to have_button("Activate")
       end
     end
   end
