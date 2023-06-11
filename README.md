@@ -36,7 +36,7 @@ And I can see my new coupon listed.
 1. This Merchant already has 5 active coupons
 2. Coupon code entered is NOT unique
 
-[] 3. Merchant Coupon Show Page 
+[x] 3. Merchant Coupon Show Page 
 
 As a merchant 
 When I visit a merchant's coupon show page 
