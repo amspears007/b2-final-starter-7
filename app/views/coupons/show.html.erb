@@ -4,8 +4,13 @@
 <p>Name: <%= @coupon.name %>
 <p>Code: <%=  @coupon.unique_code %></p>
 <p>Amount Off: <%= @coupon.amount_off %> <%= @coupon.discount %></p>
-<p>Status: <%=  @coupon.status %></p>
 <p>Number of times Used: <%=  @coupon.counts_use %></p>
 
+<p>Status: <%=  @coupon.status %></p>
+
+ <%= form_with url: merchant_coupon_path(@merchant, @coupon), method: :patch, local: true do |f| %>
+          <%= f.hidden_field :status, value: "Deactivated" %>
+          <%= f.submit "Deactivate" %>
+        <% end %><br>
 
 
