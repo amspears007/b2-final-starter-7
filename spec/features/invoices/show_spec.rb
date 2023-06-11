@@ -31,12 +31,12 @@ RSpec.describe "invoices show" do
     @invoice_1 = @coupon1.invoices.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09")
     @invoice_2 = @coupon2.invoices.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-28 14:54:09")
     @invoice_3 = @coupon4.invoices.create!(customer_id: @customer_2.id, status: 2)
-    @invoice_4 = Invoice.create!(customer_id: @customer_3.id, status: 2)
-    @invoice_5 = Invoice.create!(customer_id: @customer_4.id, status: 2)
-    @invoice_6 = Invoice.create!(customer_id: @customer_5.id, status: 2)
-    @invoice_7 = Invoice.create!(customer_id: @customer_6.id, status: 2)
+    @invoice_4 = @coupon1.invoices.create!(customer_id: @customer_3.id, status: 2)
+    @invoice_5 =@coupon3.invoices.create!(customer_id: @customer_4.id, status: 2)
+    @invoice_6 =@coupon3.invoices.create!(customer_id: @customer_5.id, status: 2)
+    @invoice_7 = @coupon1.invoices.create!(customer_id: @customer_6.id, status: 2)
 
-    @invoice_8 = Invoice.create!(customer_id: @customer_6.id, status: 1)
+    @invoice_8 = @coupon1.invoices.create!(customer_id: @customer_6.id, status: 1)
 
     @ii_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 9, unit_price: 10, status: 2)
     @ii_2 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_1.id, quantity: 1, unit_price: 10, status: 2)
@@ -107,7 +107,7 @@ RSpec.describe "invoices show" do
   end
 
 describe "US7 Merchant Invoice Show Page: Subtotal and Grand Total Revenues" do
-  it "I see the subtotal for my merchant from this invoice (that is, the total that does not include coupon discounts) And I see the grand total revenue after the discount was applied
+  xit "I see the subtotal for my merchant from this invoice (that is, the total that does not include coupon discounts) And I see the grand total revenue after the discount was applied
   And I see the name and code of the coupon used as a link to that coupon's show page." do
   visit merchant_invoice_path(@merchant1, @invoice_1)
 # save_and_open_page

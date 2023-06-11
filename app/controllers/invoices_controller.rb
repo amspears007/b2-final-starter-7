@@ -1,6 +1,8 @@
 class InvoicesController < ApplicationController
+  # before_action :check_if_nil, only: [:show]
   before_action :find_invoice_and_merchant, only: [:show, :update]
   before_action :find_merchant, only: [:index]
+
 
   def index
     @invoices = @merchant.invoices
@@ -28,5 +30,11 @@ class InvoicesController < ApplicationController
 
   def find_merchant
     @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  # def check_if_nil
+  #   @invoice = Invoice.find(params[:id])
+  #     if @invoice.coupon != nil 
+  #   end
   end
 end
