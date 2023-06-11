@@ -18,7 +18,9 @@
   <p> Apply <%=  @invoice.coupon.name %> Code <%= @invoice.coupon.unique_code %>
   <p> Grandtotal: <%= @invoice.coupon_applied %>
     <% else %>
-      <p> No Coupon Applied </>
+      <p> Grandtotal: <%= @invoice.total_revenue %></p>
+      <p> No Coupon Applied </p>
+
   <% end %>
  
 </section>
