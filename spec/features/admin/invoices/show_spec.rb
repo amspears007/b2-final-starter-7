@@ -54,7 +54,7 @@ describe "Admin Invoices Index Page" do
   end
 
   it "should display the total revenue the invoice will generate" do
-    expect(page).to have_content("Total Revenue: $#{@i1.total_revenue}")
+    expect(page).to have_content("Total Revenue(Subtotal): $#{@i1.total_revenue}")
 
     expect(page).to_not have_content(@i2.total_revenue)
   end
@@ -69,4 +69,42 @@ describe "Admin Invoices Index Page" do
       expect(@i1.status).to eq("completed")
     end
   end
+
+  describe "US8  Merchant Invoice Show Page: Subtotal and Grand Total Revenues" do
+    it "I see the name and code of the coupon that was used (if there was a coupon applied) and I see both the subtotal revenue from that invoice (before coupon) and the grand total revenue (after coupon) for this invoice." do
+      coupon_test_data
+      visit admin_invoice_path(@invoice_1)
+      # save_and_open_page
+
+      within("#center-invoice-total") do
+        expect(page).to have_content("10 Sale!")
+        expect(page).to have_content("10%OFF")
+        expect(page).to have_content("Total Revenue(Subtotal):")
+
+        expect(page).to have_content(@invoice_1.total_revenue)
+        expect(page).to have_content("Grand Total:")
+
+        expect(page).to have_content(@invoice_1.coupon_applied)
+      end
+    end
+
+      it "I see that no coupon is applied to my grandtotal for my an invoice that does not have a coupon" do
+        coupon_test_data
+      visit admin_invoice_path(@invoice_7)
+
+      within("#center-invoice-total") do
+        expect(page).to have_content("No Coupon Applied")
+        expect(page).to have_content("Grand Total:")
+        expect(page).to have_content(@invoice_7.total_revenue)
+        end
+      
+    end
+  end
 end
+
+# 8. Admin Invoice Show Page: Subtotal and Grand Total Revenues
+
+# As an admin
+# When I visit one of my admin invoice show pages
+# I see the name and code of the coupon that was used (if there was a coupon applied)
+# And I see both the subtotal revenue from that invoice (before coupon) and the grand total revenue (after coupon) for this invoice.

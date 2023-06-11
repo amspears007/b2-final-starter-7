@@ -68,13 +68,13 @@ When I click that button
 I'm taken back to the coupon show page 
 And I can see that its status is now listed as 'active'.
 
-[] 6. Merchant Coupon Index Sorted
+[x] 6. Merchant Coupon Index Sorted
 
 As a merchant
 When I visit my coupon index page
 I can see that my coupons are separated between active and inactive coupons. 
 
-[] 7. Merchant Invoice Show Page: Subtotal and Grand Total Revenues
+[x] 7. Merchant Invoice Show Page: Subtotal and Grand Total Revenues
 
 As a merchant
 When I visit one of my merchant invoice show pages

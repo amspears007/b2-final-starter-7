@@ -12,14 +12,14 @@
 
 <section id="center-invoice-info">
   <p> Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %></p>
-  <p>Total Revenue(Subtotal): <%= @invoice.total_revenue %></p>
+  <p>Total Revenue(Subtotal): <%= number_to_currency(@invoice.total_revenue) %></p>
 
    <%  if @invoice.coupon != nil %> 
   <p> Apply <%=  @invoice.coupon.name %> Code <%= @invoice.coupon.unique_code %>
-  <p> Grandtotal: <%= @invoice.coupon_applied %>
+  <p> Grand Total: <%= number_to_currency(@invoice.coupon_applied) %>
     <% else %>
-      <p> Grandtotal: <%= @invoice.total_revenue %></p>
       <p> No Coupon Applied </p>
+      <p> Grand Total: <%= number_to_currency(@invoice.total_revenue) %></p>
 
   <% end %>
  
