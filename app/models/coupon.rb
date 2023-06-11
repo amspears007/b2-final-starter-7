@@ -9,7 +9,7 @@ class Coupon < ApplicationRecord
   has_many :invoices
 
   enum discount: [:dollars, :percent]
-  enum status:  {deactivated: 0, activated: 1}
+  enum status:  {Deactivated: 0, Activated: 1}
 
   def counts_use
     invoices.joins(:transactions)
