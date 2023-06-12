@@ -74,7 +74,6 @@ describe "Admin Invoices Index Page" do
     it "I see the name and code of the coupon that was used (if there was a coupon applied) and I see both the subtotal revenue from that invoice (before coupon) and the grand total revenue (after coupon) for this invoice." do
       coupon_test_data
       visit admin_invoice_path(@invoice_1)
-      # save_and_open_page
 
       within("#center-invoice-total") do
         expect(page).to have_content("10 Sale!")
@@ -97,14 +96,6 @@ describe "Admin Invoices Index Page" do
         expect(page).to have_content("Grand Total:")
         expect(page).to have_content(@invoice_7.total_revenue)
         end
-      
     end
   end
 end
-
-# 8. Admin Invoice Show Page: Subtotal and Grand Total Revenues
-
-# As an admin
-# When I visit one of my admin invoice show pages
-# I see the name and code of the coupon that was used (if there was a coupon applied)
-# And I see both the subtotal revenue from that invoice (before coupon) and the grand total revenue (after coupon) for this invoice.

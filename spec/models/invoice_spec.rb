@@ -38,14 +38,18 @@ RSpec.describe Invoice, type: :model do
       @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
       @invoice_1 = @coupon1.invoices.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09")
       @invoice_2 = @coupon4.invoices.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-28 14:54:09")
+      @invoice_3 = @coupon4.invoices.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-28 14:54:09")
 
       @ii_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 9, unit_price: 10, status: 2)
       @ii_11 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_8.id, quantity: 1, unit_price: 10, status: 1)
       @ii_2 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_1.id, quantity: 9, unit_price: 10, status: 2)
       @ii_22 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_8.id, quantity: 1, unit_price: 10, status: 1)
+      @ii_3 = InvoiceItem.create!(invoice_id: @invoice_3.id, item_id: @item_1.id, quantity: 1, unit_price: 10, status: 1)
 
       expect(@invoice_1.coupon_applied).to eq(90)
       expect(@invoice_2.coupon_applied).to eq(85)
+      expect(@invoice_3.coupon_applied).to eq(0)
+
     end
   end
 end
