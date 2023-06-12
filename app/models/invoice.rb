@@ -20,7 +20,7 @@ class Invoice < ApplicationRecord
       coup_discount = total_revenue * coupon.amount_off.to_f/100
       total_revenue - coup_discount
     else
-      total_revenue - coupon.amount_off
+      [total_revenue - coupon.amount_off, 0].max
     end
   end
 end
