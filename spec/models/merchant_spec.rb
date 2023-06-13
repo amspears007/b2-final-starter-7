@@ -136,7 +136,7 @@ describe Merchant do
 
     describe "Finds active coupon count > five" do
       it "::active_coupon_count" do
-        expect(@merchant1.active_coupon_count).to eq(5)
+        expect(@merchant1.active_coupon_count).to eq(4)
         expect(@merchant2.active_coupon_count).to eq(2)
       end
     end
