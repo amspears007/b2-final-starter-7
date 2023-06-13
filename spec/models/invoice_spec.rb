@@ -49,7 +49,6 @@ RSpec.describe Invoice, type: :model do
       expect(@invoice_1.coupon_applied).to eq(90)
       expect(@invoice_2.coupon_applied).to eq(85)
       expect(@invoice_3.coupon_applied).to eq(0)
-
     end
   end
 end

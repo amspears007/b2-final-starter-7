@@ -4,7 +4,7 @@ class CouponsController < ApplicationController
   def index
     @merchant = Merchant.find( params[:merchant_id])
     @coupons = @merchant.coupons
-    # @holidays = HolidayService.new.get_holidays
+    @holidays = HolidayService.new.get_holidays
   end
 
   def show
@@ -32,8 +32,13 @@ class CouponsController < ApplicationController
     merchant = Merchant.find( params[:merchant_id])
     coupons = merchant.coupons
     coupon = coupons.find(params[:id])
+    if merchant.active_coupon_count >= 5 && params[:status] == "Activated"
+      redirect_to merchant_coupon_path(merchant, coupon)
+      flash[:alert] = "Can only have 5 active coupons"
+    else
     coupon.update(status: params[:status])
     redirect_to merchant_coupon_path(merchant, coupon)
+    end
   end
 
   private
