@@ -30,8 +30,8 @@ describe Merchant do
       @coupon4 = @merchant1.coupons.create!(name: "Ten Dollars Off", unique_code: "10$OFF", amount_off: 10, discount: 0, status: 1)
       @coupon5 = @merchant1.coupons.create!(name: "Summer Sale", unique_code: "SUM12%OFF",amount_off: 12, discount: 1, status: 1)
       @coupon6 = @merchant1.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 0)
-      @coupon7 = @merchant2.coupons.create!(name: "Twelve Percent Off", unique_code: "12%OFF",amount_off: 12, discount: 1, status: 1)
-      @coupon8 = @merchant2.coupons.create!(name: "Ten Percent Off", unique_code: "10%OFF", amount_off: 10, discount: 1, status: 1)
+      @coupon7 = @merchant2.coupons.create!(name: "Twelve Percent Off", unique_code: "!12%OFF",amount_off: 12, discount: 1, status: 1)
+      @coupon8 = @merchant2.coupons.create!(name: "Ten Percent Off!", unique_code: "!10%OFF", amount_off: 10, discount: 1, status: 1)
 
       @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
       @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
