@@ -9,7 +9,7 @@ RSpec.describe "Coupon Show" do
     it " see that coupon's name and code And I see the percent/dollar off value As well as its status (active or inactive)
     And I see a count of how many times that coupon has been used." do
       visit merchant_coupon_path(@merchant1, @coupon1)
-# save_and_open_page
+
       expect(page).to have_content("Name: #{@coupon1.name}")
       expect(page).to have_content("Code: #{@coupon1.unique_code}")
       expect(page).to have_content("Amount Off: #{@coupon1.amount_off} #{@coupon1.discount}")
@@ -37,13 +37,12 @@ RSpec.describe "Coupon Show" do
     describe "US5 Merchant Coupon Activate" do
       it "I visit one of my inactive coupon show pages I see a button to activate that coupon.  When I click that button I'm taken back to the coupon show page And I can see that its status is now listed as 'active'." do
       visit merchant_coupon_path(@merchant1, @coupon6)
-      # require 'pry'; binding.pry
+     
       within("#status-control")do
         expect(page).to have_content("Status: #{@coupon6.status}")
         expect(page).to have_button("Activate")
         click_button("Activate")
         expect(current_path).to eq(merchant_coupon_path(@merchant1, @coupon6))
-        # save_and_open_page
         expect(page).to have_button("Deactivate")
         expect(page).to have_content("Status: Activated")
         end
@@ -60,30 +59,9 @@ RSpec.describe "Coupon Show" do
         click_button("Activate")
         expect(current_path).to eq(merchant_coupon_path(@merchant1, @coupon6))
       end
-      save_and_open_page
       expect(page).to have_content("Can only have 5 active coupons")
     end
   end
 
-#   5. Merchant Coupon Activate
-
-#   As a merchant 
-#   When I visit one of my inactive coupon show pages
-#   I see a button to activate that coupon
-#   When I click that button
-#   I'm taken back to the coupon show page 
-#   And I can see that its status is now listed as 'active'.
-
-# #   Merchant Coupon Deactivate
-
-# # As a merchant 
-# # When I visit one of my active coupon's show pages
-# I see a button to deactivate that coupon
-# When I click that button
-# I'm taken back to the coupon show page 
-# And I can see that its status is now listed as 'inactive'.
-
-# * Sad Paths to consider: 
-# 1. A coupon cannot be deactivated if there are any pending invoices with that coupon.
 
   
