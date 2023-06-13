@@ -110,7 +110,7 @@ describe "US7 Merchant Invoice Show Page: Subtotal and Grand Total Revenues" do
   it "I see the subtotal for my merchant from this invoice (that is, the total that does not include coupon discounts) And I see the grand total revenue after the discount was applied
   And I see the name and code of the coupon used as a link to that coupon's show page." do
   visit merchant_invoice_path(@merchant1, @invoice_1)
-  # save_and_open_page
+ 
   within("#center-invoice-info") do
     expect(page).to have_content("#{@coupon1.name}")
     expect(page).to have_content("#{@coupon1.unique_code}")
@@ -121,7 +121,7 @@ end
 
   it "I see that no coupon is applied to my grandtotal for my merchant from an invoice that does not have a coupon" do
   visit merchant_invoice_path(@merchant1, @invoice_7)
-  save_and_open_page
+
     within("#center-invoice-info") do
       expect(page).to have_content("No Coupon Applied")
       expect(page).to have_content("Grand Total:")
