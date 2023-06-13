@@ -4,6 +4,7 @@ class CouponsController < ApplicationController
   def index
     @merchant = Merchant.find( params[:merchant_id])
     @coupons = @merchant.coupons
+    # @holidays = HolidaySearch.new
   end
 
   def show
