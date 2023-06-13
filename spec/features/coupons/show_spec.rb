@@ -28,7 +28,6 @@ RSpec.describe "Coupon Show" do
         click_button("Deactivate")
         
         expect(current_path).to eq(merchant_coupon_path(@merchant1, @coupon1))
-        # save_and_open_page
         expect(page).to have_content("Status: Deactivated")
         expect(page).to have_button("Activate")
         end
@@ -38,7 +37,7 @@ RSpec.describe "Coupon Show" do
     describe "US5 Merchant Coupon Activate" do
       it "I visit one of my inactive coupon show pages I see a button to activate that coupon.  When I click that button I'm taken back to the coupon show page And I can see that its status is now listed as 'active'." do
       visit merchant_coupon_path(@merchant1, @coupon6)
-      
+      # require 'pry'; binding.pry
       within("#status-control")do
         expect(page).to have_content("Status: #{@coupon6.status}")
         expect(page).to have_button("Activate")
@@ -47,15 +46,22 @@ RSpec.describe "Coupon Show" do
         # save_and_open_page
         expect(page).to have_button("Deactivate")
         expect(page).to have_content("Status: Activated")
+        end
       end
+    end
 
-
-
-
-
-
-
+    it "When I have five active coupons already when I try to activate my inactive coupon I receive a flash message" do
+      @coupon10 = @merchant1.coupons.create!(name: "12 Percent!!!", unique_code: "12%",amount_off: 12, discount: 1, status: 1)
+      visit merchant_coupon_path(@merchant1, @coupon6)
+      
+      within("#status-control")do
+        expect(page).to have_content("Status: #{@coupon6.status}")
+        expect(page).to have_button("Activate")
+        click_button("Activate")
+        expect(current_path).to eq(merchant_coupon_path(@merchant1, @coupon6))
       end
+      save_and_open_page
+      expect(page).to have_content("Can only have 5 active coupons")
     end
   end
 

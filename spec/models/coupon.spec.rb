@@ -82,8 +82,6 @@ end
       expect(@coupon1.counts_use).to eq(4)
       expect(@coupon2.counts_use).to eq(1)
       expect(@coupon4.counts_use).to eq(0)
-
-
     end
   end
 end
